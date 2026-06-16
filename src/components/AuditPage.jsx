@@ -190,7 +190,7 @@ export default function AuditPage() {
           </div>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '4rem', alignItems: 'start' }}>
+        <div className="audit-layout" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '4rem', alignItems: 'start' }}>
 
           {/* ── LEFT COLUMN ── */}
           <div>
@@ -285,7 +285,7 @@ export default function AuditPage() {
                     <FocusInput type="tel" name="phone" placeholder="+91 98765 43210" required value={form.phone} onChange={handleChange} />
                   </FormField>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="mobile-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <FormField label="Business Type *" delay={0.35}>
                       <FocusSelect name="businessType" required value={form.businessType} onChange={handleChange}>
                         <option value="" style={{ background: '#0d1117' }}>Select type</option>

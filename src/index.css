@@ -168,3 +168,41 @@ h1, h2, h3, h4 {
 ::-webkit-scrollbar-track { background: var(--bg-dark); }
 ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* --- Responsive Utilities --- */
+@media (max-width: 900px) {
+  .desktop-only { display: none !important; }
+  .mobile-col { flex-direction: column !important; }
+  .grid-3 { grid-template-columns: 1fr !important; }
+  
+  .section-padding { padding: 4rem 0; }
+  .section-title { font-size: clamp(1.8rem, 6vw, 2.2rem) !important; }
+  
+  .hero-layout, .audit-layout {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+  
+  h1 { font-size: clamp(2.2rem, 8vw, 3rem) !important; min-height: auto !important; }
+  
+  .nav-container {
+    padding: 0.5rem 1rem !important;
+    gap: 1rem !important;
+  }
+  
+  .hero-diagram {
+    transform: scale(0.7);
+    height: 320px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-diagram {
+    transform: scale(0.5);
+    height: 250px !important;
+  }
+  .nav-container {
+    flex-wrap: wrap;
+    justify-content: center !important;
+  }
+}

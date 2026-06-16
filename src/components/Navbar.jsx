@@ -18,6 +18,7 @@ export default function Navbar() {
   return (
     <motion.div style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 100, paddingTop: '1.5rem', pointerEvents: 'none' }}>
       <motion.nav 
+        className="nav-container"
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -44,6 +45,7 @@ export default function Navbar() {
 
         {/* Links container */}
         <div 
+          className="desktop-only"
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
           onMouseLeave={() => setHoveredLink(null)}
         >

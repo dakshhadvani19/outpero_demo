@@ -132,7 +132,7 @@ export default function HeroSection() {
   return (
     <section className="section-padding container" style={{ paddingTop: '120px' }}>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem', alignItems: 'center', marginBottom: '6rem' }}>
+      <div className="hero-layout" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem', alignItems: 'center', marginBottom: '6rem' }}>
         
         {/* Left Column: Text & CTA */}
         <div style={{ zIndex: 10 }}>
@@ -196,7 +196,7 @@ export default function HeroSection() {
         </div>
 
         {/* Right Column: Interactive Diagram */}
-        <div style={{ position: 'relative', height: '420px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="hero-diagram" style={{ position: 'relative', height: '420px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
           {/* Dots: travel from edge of central circle to edge of each outer circle */}
           {outerNodes.map((pos, i) => {
