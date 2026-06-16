@@ -30,10 +30,6 @@ export default function Navbar() {
         <span>OUTPERO</span>
       </div>
 
-      <div style={{ display: 'none', gap: '2rem', '@media (min-width: 1024px)': { display: 'flex' } }}>
-        {/* Responsive hide, but we'll just show for now using inline style override logic or assume desktop */}
-      </div>
-      
       {/* Links container */}
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
         {links.map((link, i) => {

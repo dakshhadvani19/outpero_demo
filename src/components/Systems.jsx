@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
+import HoverCloudCard from './HoverCloudCard';
 
 export default function Systems() {
   const systems = [
@@ -41,7 +42,7 @@ export default function Systems() {
 
       <div className="grid-3">
         {systems.map((sys, i) => (
-          <motion.div 
+          <HoverCloudCard 
             key={i}
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -84,7 +85,7 @@ export default function Systems() {
                 </a>
               )}
             </div>
-          </motion.div>
+          </HoverCloudCard>
         ))}
       </div>
     </section>

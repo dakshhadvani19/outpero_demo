@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import HoverCloudCard from './HoverCloudCard';
 
 export default function Solutions() {
   const solutions = [
@@ -34,7 +35,7 @@ export default function Solutions() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
         {solutions.map((sol, i) => (
-          <motion.div 
+          <HoverCloudCard 
             key={i}
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -59,7 +60,7 @@ export default function Solutions() {
                 View Details <ChevronRight size={16} />
               </div>
             )}
-          </motion.div>
+          </HoverCloudCard>
         ))}
       </div>
     </section>

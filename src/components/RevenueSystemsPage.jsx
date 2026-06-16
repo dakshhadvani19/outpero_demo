@@ -1,13 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  CheckCircle2, 
-  ArrowRight, 
+import {
+  CheckCircle2,
+  ArrowRight,
   Activity,
   BarChart,
   Zap
 } from 'lucide-react';
+import HoverCloudCard from './HoverCloudCard';
 
 /* ─── HELPERS ─── */
 const fadeUp = (delay = 0) => ({
@@ -20,71 +21,69 @@ const fadeUp = (delay = 0) => ({
 /* ─── SECTION 1: HERO ─── */
 function HeroSection() {
   return (
-    <section style={{ 
-      minHeight: '80vh', 
-      display: 'flex', 
-      alignItems: 'center', 
+    <section style={{
+      minHeight: '80vh',
+      display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
-      position: 'relative', 
-      overflow: 'hidden', 
-      paddingTop: 80, 
-      background: 'radial-gradient(circle at 50% 20%, rgba(99,102,241,0.08) 0%, transparent 60%)' 
+      position: 'relative',
+      overflow: 'hidden',
+      paddingTop: 80,
+      background: 'radial-gradient(circle at 50% 20%, rgba(99,102,241,0.08) 0%, transparent 60%)'
     }}>
       {/* Circuit grid background */}
       <div style={{ position: 'absolute', inset: 0, opacity: 0.05, backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none' }} />
-      
+
       {/* Slow breathing glow orb */}
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }} 
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }} 
-        style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(129,140,248,0.3) 0%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} 
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(129,140,248,0.3) 0%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }}
       />
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 2rem', textAlign: 'center', position: 'relative', zIndex: 10 }}>
-        <motion.div 
-          {...fadeUp(0)} 
+        <motion.div
+          {...fadeUp(0)}
           style={{ display: 'inline-flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}
         >
-          <span style={{ width: 40, height: 1, background: 'linear-gradient(90deg, transparent, rgba(129,140,248,0.8))' }} />
           <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#818cf8' }}>REVENUE SYSTEMS</span>
-          <span style={{ width: 40, height: 1, background: 'linear-gradient(-90deg, transparent, rgba(129,140,248,0.8))' }} />
         </motion.div>
 
-        <motion.h1 
-          {...fadeUp(0.15)} 
+        <motion.h1
+          {...fadeUp(0.15)}
           style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '1.5rem', color: '#fff' }}
         >
           The Big Three
         </motion.h1>
 
-        <motion.p 
-          {...fadeUp(0.3)} 
+        <motion.p
+          {...fadeUp(0.3)}
           style={{ fontSize: '1.25rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 3rem' }}
         >
           Three of the most expensive problems in any growing business — each one fixed completely.
         </motion.p>
 
         <motion.div {...fadeUp(0.45)}>
-          <Link 
-            to="/audit" 
-            style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
+          <Link
+            to="/audit"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
               justifyContent: 'center',
-              padding: '1.1rem 2.5rem', 
-              borderRadius: 999, 
-              background: 'linear-gradient(135deg, #6366f1, #818cf8)', 
-              color: '#fff', 
-              fontWeight: 800, 
-              fontSize: '1.1rem', 
-              textDecoration: 'none', 
+              padding: '1.1rem 2.5rem',
+              borderRadius: 999,
+              background: 'linear-gradient(135deg, #6366f1, #818cf8)',
+              color: '#fff',
+              fontWeight: 800,
+              fontSize: '1.1rem',
+              textDecoration: 'none',
               boxShadow: '0 0 40px rgba(99,102,241,0.4)',
               position: 'relative',
               overflow: 'hidden'
             }}
           >
-            <motion.div 
-              animate={{ x: ['-100%', '200%'] }} 
+            <motion.div
+              animate={{ x: ['-100%', '200%'] }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: '30%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)', transform: 'skewX(-20deg)' }}
             />
@@ -139,7 +138,7 @@ function SystemsSection() {
     <section style={{ padding: '6rem 2rem', background: '#03070f', position: 'relative' }}>
       <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
         {SYSTEMS_DATA.map((sys, i) => (
-          <motion.div 
+          <motion.div
             key={i}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -147,23 +146,23 @@ function SystemsSection() {
             transition={{ duration: 0.8, delay: 0.1 }}
             style={{ position: 'relative' }}
           >
-            <motion.div 
+            <HoverCloudCard
               whileHover={{ scale: 1.015, borderColor: 'rgba(129,140,248,0.5)' }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              style={{ 
-                background: 'rgba(10,13,28,0.6)', 
+              style={{
+                background: 'rgba(10,13,28,0.6)',
                 backdropFilter: 'blur(20px)',
-                borderRadius: 24, 
-                border: '1px solid rgba(255,255,255,0.06)', 
-                padding: '3rem', 
-                position: 'relative', 
+                borderRadius: 24,
+                border: '1px solid rgba(255,255,255,0.06)',
+                padding: '3rem',
+                position: 'relative',
                 overflow: 'hidden',
                 boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
               }}
             >
               {/* Dynamic hover gradient behind the card border */}
               <div style={{ position: 'absolute', top: 0, right: 0, width: 300, height: 300, background: 'radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-              
+
               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem', position: 'relative', zIndex: 10 }}>
                 {/* Top header row */}
                 <div>
@@ -183,7 +182,7 @@ function SystemsSection() {
                   <h4 style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: '1.5rem' }}>What's Included</h4>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
                     {sys.features.map((feat, j) => (
-                      <motion.div 
+                      <motion.div
                         key={j}
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -211,7 +210,7 @@ function SystemsSection() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </HoverCloudCard>
           </motion.div>
         ))}
 
@@ -227,25 +226,25 @@ function SystemsSection() {
 function BannerCTA() {
   return (
     <section style={{ padding: '0 2rem 6rem', background: '#03070f' }}>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
         style={{ maxWidth: 1000, margin: '0 auto' }}
       >
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          style={{ 
-            background: 'linear-gradient(90deg, rgba(99,102,241,0.05), transparent)', 
-            border: '1px solid rgba(99,102,241,0.2)', 
-            borderRadius: 24, 
-            padding: '3rem', 
-            display: 'flex', 
-            flexWrap: 'wrap', 
-            alignItems: 'center', 
-            justifyContent: 'space-between', 
+          style={{
+            background: 'linear-gradient(90deg, rgba(99,102,241,0.05), transparent)',
+            border: '1px solid rgba(99,102,241,0.2)',
+            borderRadius: 24,
+            padding: '3rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             gap: '2rem',
             position: 'relative',
             overflow: 'hidden'
@@ -259,21 +258,21 @@ function BannerCTA() {
             <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#fff', marginBottom: '1rem' }}>Not ready for a full system?</h3>
             <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>Don't wait to fix what hurts most. Explore our library of 19 standalone solutions designed to solve specific bottlenecks instantly.</p>
           </div>
-          
+
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <Link 
-              to="/solutions" 
-              style={{ 
-                display: 'inline-flex', 
-                alignItems: 'center', 
+            <Link
+              to="/solutions"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
                 justifyContent: 'center',
-                padding: '1rem 2rem', 
-                borderRadius: 999, 
-                background: 'rgba(255,255,255,0.05)', 
+                padding: '1rem 2rem',
+                borderRadius: 999,
+                background: 'rgba(255,255,255,0.05)',
                 border: '1px solid rgba(255,255,255,0.15)',
-                color: '#fff', 
-                fontWeight: 700, 
-                fontSize: '1rem', 
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: '1rem',
                 textDecoration: 'none',
                 backdropFilter: 'blur(10px)',
                 transition: 'all 0.3s ease'
@@ -299,10 +298,10 @@ function BannerCTA() {
 /* ─── SECTION 4: BOTTOM CTA ─── */
 function BottomCTA() {
   return (
-    <section style={{ 
-      padding: '8rem 2rem', 
-      background: 'linear-gradient(to bottom, #03070f, #0a0d24)', 
-      position: 'relative', 
+    <section style={{
+      padding: '8rem 2rem',
+      background: 'linear-gradient(to bottom, #03070f, #0a0d24)',
+      position: 'relative',
       overflow: 'hidden',
       textAlign: 'center'
     }}>
@@ -311,35 +310,35 @@ function BottomCTA() {
       <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(14,165,233,0.1) 0%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
 
       <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <motion.h2 
-          {...fadeUp(0)} 
+        <motion.h2
+          {...fadeUp(0)}
           style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900, color: '#fff', lineHeight: 1.1, marginBottom: '1.5rem' }}
         >
           Your revenue leak has a fix.<br />
           Let's find it.
         </motion.h2>
-        
-        <motion.p 
-          {...fadeUp(0.1)} 
+
+        <motion.p
+          {...fadeUp(0.1)}
           style={{ fontSize: '1.25rem', color: 'rgba(255,255,255,0.6)', marginBottom: '3rem', maxWidth: 600, margin: '0 auto 3rem' }}
         >
           Book a free 30-minute strategy call. We'll show you exactly where you can automate tasks and capture more revenue.
         </motion.p>
-        
+
         <motion.div {...fadeUp(0.2)} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-          <Link 
-            to="/audit" 
-            style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
+          <Link
+            to="/audit"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
               justifyContent: 'center',
-              padding: '1.1rem 2.5rem', 
-              borderRadius: 999, 
-              background: 'linear-gradient(135deg, #6366f1, #818cf8)', 
-              color: '#fff', 
-              fontWeight: 800, 
-              fontSize: '1.1rem', 
-              textDecoration: 'none', 
+              padding: '1.1rem 2.5rem',
+              borderRadius: 999,
+              background: 'linear-gradient(135deg, #6366f1, #818cf8)',
+              color: '#fff',
+              fontWeight: 800,
+              fontSize: '1.1rem',
+              textDecoration: 'none',
               boxShadow: '0 0 30px rgba(99,102,241,0.3)',
               transition: 'transform 0.2s ease'
             }}
@@ -348,19 +347,19 @@ function BottomCTA() {
           >
             Book Free Audit <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
           </Link>
-          <a 
-            href="#top" 
-            style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
+          <a
+            href="#top"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
               justifyContent: 'center',
-              padding: '1.1rem 2.5rem', 
-              borderRadius: 999, 
-              background: 'transparent', 
+              padding: '1.1rem 2.5rem',
+              borderRadius: 999,
+              background: 'transparent',
               border: '1px solid rgba(255,255,255,0.2)',
-              color: '#fff', 
-              fontWeight: 700, 
-              fontSize: '1.1rem', 
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: '1.1rem',
               textDecoration: 'none',
               transition: 'all 0.3s ease'
             }}
@@ -380,7 +379,7 @@ function BottomCTA() {
             Explore the Solutions <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
           </a>
         </motion.div>
-        
+
         <motion.p {...fadeUp(0.3)} style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)' }}>
           No obligation. No pitch. Just clarity.
         </motion.p>
