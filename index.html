@@ -12,5 +12,27 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      (function (d, t) {
+        var g = document.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+        g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+        g.defer = true;
+        g.async = true;
+        s.parentNode.insertBefore(g, s);
+        g.onload = function () {
+          window.vapiSDK.run({
+            apiKey: "d3fd3044-8895-4c1b-8107-8d7b4e514297", // Replace with your Vapi Public Key (usually starts with org_) if needed
+            assistant: "d3fd3044-8895-4c1b-8107-8d7b4e514297", // Your Vapi Assistant ID
+            config: {
+              button: {
+                position: "bottom-right",
+                color: "#0ea5e9",
+              }
+            },
+          });
+        };
+      })(document, "script");
+    </script>
   </body>
 </html>

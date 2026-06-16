@@ -107,8 +107,25 @@ export default function AuditPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    // Simulate API / Firebase call
-    await new Promise(r => setTimeout(r, 1200));
+    try {
+      const response = await fetch('http://localhost:3000/api/book-audit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          goal: `${form.businessType} (${form.businessSize})`,
+          message: form.challenge
+        }),
+      });
+      const data = await response.json();
+      console.log('Lead submission response:', data);
+    } catch (err) {
+      console.error('Failed to connect to backend server:', err);
+    }
     setSubmitting(false);
     setSubmitted(true);
   };
@@ -220,7 +237,8 @@ export default function AuditPage() {
               {[
                 { icon: <Clock size={15} />, text: 'We respond within 24 hours' },
                 { icon: <Mail size={15} />, text: 'hello@outpero.com' },
-                { icon: <Phone size={15} />, text: 'Instagram: @outpero' },
+                { icon: <Phone size={15} />, text: 'Tharun Naik (Founder): +91 6362852526' },
+                { icon: <Phone size={15} />, text: 'Daksh Hadvani (Founder): +91 96646 96850' },
               ].map(({ icon, text }, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>
                   <span style={{ color: 'var(--accent-primary)' }}>{icon}</span>
