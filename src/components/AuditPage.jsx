@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Clock, Mail, Phone, ArrowRight, Sparkles, Send } from 'lucide-react';
 import VoiceAgentBanner from './VoiceAgentBanner';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -107,10 +109,20 @@ export default function AuditPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    // Simulate API / Firebase call
-    await new Promise(r => setTimeout(r, 1200));
-    setSubmitting(false);
-    setSubmitted(true);
+    
+    try {
+      // Send data to Firestore
+      await addDoc(collection(db, 'audit_bookings'), {
+        ...form,
+        createdAt: serverTimestamp(),
+      });
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const checklistItems = [
