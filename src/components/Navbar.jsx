@@ -16,7 +16,7 @@ export default function Navbar() {
   ];
 
   return (
-    <motion.div style={{ position: 'fixed', top: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 100, paddingTop: '1.5rem', pointerEvents: 'none' }}>
+    <motion.div style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 100, paddingTop: '1.5rem', pointerEvents: 'none' }}>
       <motion.nav 
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

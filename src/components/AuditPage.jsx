@@ -298,8 +298,8 @@ export default function AuditPage() {
                     </FormField>
                   </div>
 
-                  <FormField label="Biggest Challenge *" delay={0.45}>
-                    <FocusTextarea name="challenge" rows={4} placeholder="What is the biggest operational or growth challenge your business faces right now?" required value={form.challenge} onChange={handleChange} />
+                  <FormField label="Biggest Challenge (Optional)" delay={0.45}>
+                    <FocusTextarea name="challenge" rows={4} placeholder="What is the biggest operational or growth challenge your business faces right now?" value={form.challenge} onChange={handleChange} />
                   </FormField>
 
                   <motion.button
