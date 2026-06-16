@@ -1,106 +1,244 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
-export default function HeroPentagon() {
-  const orbitRadius = 140;
+// Typing Animation Component
+const TypewriterText = ({ text, delay = 0 }) => {
+  const [displayedText, setDisplayedText] = useState("");
+
+  useEffect(() => {
+    let i = 0;
+    const intervalId = setInterval(() => {
+      setDisplayedText(text.slice(0, i + 1));
+      i++;
+      if (i === text.length) clearInterval(intervalId);
+    }, 50); // Speed of typing
+    
+    // Add delay start if needed (using timeout wrapper)
+    return () => clearInterval(intervalId);
+  }, [text]);
+
+  return <span>{displayedText}</span>;
+};
+
+export default function HeroSection() {
+  const orbitRadius = 160;
   
-  // Create 5 pentagons orbiting a center one
-  const outerPentagons = [0, 1, 2, 3, 4].map((i) => {
-    const angle = (i * (360 / 5)) * (Math.PI / 180);
+  // Outer nodes data based on video
+  const outerNodes = [
+    { label: 'Leads', angle: -54 },
+    { label: 'Follow up', angle: 18 },
+    { label: 'Bookings', angle: 90 },
+    { label: 'WhatsApp', angle: 162 },
+    { label: '24/7 Calls', angle: 234 }
+  ].map((node, i) => {
+    // Convert angle to radians, adjusted so -90 is top
+    const rad = (node.angle - 90) * (Math.PI / 180);
     return {
-      x: Math.cos(angle) * orbitRadius,
-      y: Math.sin(angle) * orbitRadius,
+      ...node,
+      x: Math.cos(rad) * orbitRadius,
+      y: Math.sin(rad) * orbitRadius,
       delay: i * 0.2
     };
   });
 
   return (
-    <section className="section-padding" style={{ paddingTop: '160px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <section className="section-padding container" style={{ paddingTop: '120px' }}>
       
-      {/* Pentagon Animation */}
-      <div style={{ position: 'relative', width: '300px', height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '4rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem', alignItems: 'center', marginBottom: '6rem' }}>
         
-        {/* Center Pentagon */}
-        <motion.div
-          className="clip-pentagon"
-          style={{
-            width: '80px', height: '80px',
-            background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-teal))',
-            position: 'absolute',
-            zIndex: 10,
-            boxShadow: '0 0 40px rgba(6, 182, 212, 0.5)'
-          }}
-          animate={{ rotate: 360, scale: [1, 1.1, 1] }}
-          transition={{ rotate: { duration: 20, repeat: Infinity, ease: 'linear' }, scale: { duration: 2, repeat: Infinity, ease: 'easeInOut' } }}
-        />
+        {/* Left Column: Text & CTA */}
+        <div style={{ zIndex: 10 }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.25rem 0.75rem', borderRadius: '999px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '2rem' }}
+          >
+            <Sparkles size={14} /> SYSTEMS THAT OUTPERFORM
+          </motion.div>
 
-        {/* Orbiting Pentagons */}
-        <motion.div
-          style={{ position: 'absolute', width: '100%', height: '100%' }}
-          animate={{ rotate: -360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-        >
-          {outerPentagons.map((pos, i) => (
-            <motion.div
-              key={i}
-              className="clip-pentagon"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: pos.delay, duration: 0.8 }}
+          <h1 style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', lineHeight: 1.1, marginBottom: '1.5rem', fontWeight: 800, minHeight: '160px' }}>
+            <TypewriterText text="Your business is leaking revenue." />
+            <br />
+            <span style={{ color: 'var(--text-muted)' }}>
+              <TypewriterText text="We seal it." />
+            </span>
+            <motion.span
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
               style={{
-                width: '50px', height: '50px',
-                background: 'rgba(14, 165, 233, 0.2)',
-                border: '1px solid var(--accent-primary)', // Clip path makes borders tricky, so we use a trick or just background
-                position: 'absolute',
-                top: '50%', left: '50%',
-                marginLeft: '-25px', marginTop: '-25px',
-                x: pos.x, y: pos.y,
-                backdropFilter: 'blur(4px)'
+                display: 'inline-block',
+                width: '4px',
+                height: '0.9em',
+                background: 'linear-gradient(180deg, #4285F4, #9b72cb, #d96570)', // Google AI style gradient
+                marginLeft: '8px',
+                verticalAlign: 'bottom',
+                borderRadius: '2px'
               }}
-            >
-              {/* Inner glowing core to simulate border since clip-path cuts actual borders */}
-              <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, rgba(6,182,212,0.5), transparent)' }} />
-            </motion.div>
-          ))}
-        </motion.div>
-        
-        {/* Connecting lines can be added via SVG in the background if needed, but the floating is cleaner */}
-      </div>
+            />
+          </h1>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.5, duration: 0.8 }}
+            style={{ fontSize: '1.125rem', color: 'var(--text-muted)', marginBottom: '3rem', maxWidth: '500px' }}
+          >
+            AI automations, voice agents, and web solutions — engineered around your outcomes, not our deliverables.
+          </motion.p>
 
-      {/* Hero Typography */}
-      <motion.div 
-        initial={{ y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        style={{ textAlign: 'center', zIndex: 10 }}
-      >
-        <div style={{ marginBottom: '2rem' }}>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>Systems Built For</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.75rem', maxWidth: '800px', margin: '0 auto' }}>
-            {['D2C Brands', 'Legal Firms', 'E-commerce', 'SaaS Startups', 'Real Estate', 'Clinics & Healthcare', 'Coaches & Consultants'].map((tag, i) => (
-              <span key={i} style={{ 
-                padding: '0.5rem 1rem', 
-                borderRadius: '999px', 
-                border: '1px solid var(--glass-border)', 
-                background: 'var(--bg-card)', 
-                fontSize: '0.875rem',
-                color: 'var(--text-muted)'
-              }}>
-                {tag}
-              </span>
-            ))}
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.8, duration: 0.6 }}
+            style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}
+          >
+            <button className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1rem' }}>
+              Book a Free Audit
+            </button>
+            <a href="#" style={{ color: 'var(--text-main)', textDecoration: 'none', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.target.style.color = 'var(--text-main)'}>
+              See Our Systems <ArrowRight size={16} />
+            </a>
+          </motion.div>
         </div>
 
-        <h1 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.1, marginBottom: '1.5rem', fontWeight: 800 }}>
-          You're doing everything right.<br />
-          <span style={{ color: 'var(--text-muted)' }}>But still losing.</span>
-        </h1>
-        
-        <p style={{ fontSize: '1.25rem', color: 'var(--accent-primary)', fontWeight: 600, marginBottom: '2rem' }}>
-          We fix all three. <a href="#" style={{ color: 'var(--text-main)', textDecoration: 'underline', textUnderlineOffset: '4px' }}>See how</a>
-        </p>
-      </motion.div>
+        {/* Right Column: Interactive Diagram */}
+        <div style={{ position: 'relative', height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          
+          {/* Connecting Lines / Network */}
+          <svg style={{ position: 'absolute', width: '100%', height: '100%', pointerEvents: 'none' }}>
+            <defs>
+              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="rgba(6, 182, 212, 0.1)" />
+                <stop offset="100%" stopColor="rgba(14, 165, 233, 0.5)" />
+              </linearGradient>
+            </defs>
+            <g transform="translate(50%, 50%)">
+              {outerNodes.map((pos, i) => (
+                <line 
+                  key={i}
+                  x1="0" y1="0" 
+                  x2={pos.x} y2={pos.y} 
+                  stroke="url(#lineGrad)" 
+                  strokeWidth="1.5" 
+                  strokeDasharray="4 4"
+                />
+              ))}
+            </g>
+          </svg>
+
+          {/* Central Node */}
+          <motion.div
+            style={{
+              width: '120px', height: '120px',
+              borderRadius: '50%',
+              background: 'var(--bg-dark)',
+              border: '2px solid var(--accent-primary)',
+              position: 'absolute',
+              zIndex: 10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '0 0 30px rgba(6, 182, 212, 0.3), inset 0 0 20px rgba(6, 182, 212, 0.2)',
+              textAlign: 'center'
+            }}
+            animate={{ boxShadow: ['0 0 30px rgba(6, 182, 212, 0.3)', '0 0 50px rgba(6, 182, 212, 0.6)', '0 0 30px rgba(6, 182, 212, 0.3)'] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <span style={{ fontSize: '0.875rem', fontWeight: 800, letterSpacing: '0.05em', lineHeight: 1.2 }}>
+              YOUR<br/>BUSINESS
+            </span>
+            
+            {/* Leaking revenue indicator below center */}
+            <motion.div 
+              style={{ position: 'absolute', bottom: '-40px', color: '#ef4444', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
+              animate={{ opacity: [0.5, 1, 0.5], y: [0, 5, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              ↓ LEAKING REVENUE
+            </motion.div>
+          </motion.div>
+
+          {/* Orbiting Nodes forming pentagon structure */}
+          <motion.div
+            style={{ position: 'absolute', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+          >
+            {outerNodes.map((pos, i) => (
+              <motion.div
+                key={i}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: pos.delay, duration: 0.8 }}
+                style={{
+                  width: '70px', height: '70px',
+                  borderRadius: '50%',
+                  background: 'rgba(3, 7, 18, 0.8)',
+                  border: '1px solid var(--glass-border)',
+                  position: 'absolute',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  x: pos.x, y: pos.y,
+                  backdropFilter: 'blur(8px)',
+                  color: 'var(--text-muted)',
+                  fontSize: '0.65rem',
+                  fontWeight: 600,
+                  textAlign: 'center',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                {/* Counter-rotate text so it stays upright */}
+                <motion.div animate={{ rotate: -360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}>
+                  {pos.label}
+                </motion.div>
+
+                {/* Flow particle */}
+                <motion.div
+                  style={{
+                    position: 'absolute',
+                    width: '6px', height: '6px',
+                    borderRadius: '50%',
+                    background: 'var(--accent-secondary)',
+                    boxShadow: '0 0 10px var(--accent-secondary)',
+                  }}
+                  animate={{
+                    x: [0, -pos.x * 0.8],
+                    y: [0, -pos.y * 0.8],
+                    opacity: [0, 1, 0]
+                  }}
+                  transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.5, ease: 'easeIn' }}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Systems Built For Marquee */}
+      <div style={{ textAlign: 'center', borderTop: '1px solid var(--glass-border)', paddingTop: '2rem' }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.5rem', fontWeight: 600 }}>Systems Built For</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', maxWidth: '1000px', margin: '0 auto' }}>
+          {['D2C Brands', 'Legal Firms', 'E-commerce', 'SaaS Startups', 'Real Estate', 'Clinics & Healthcare', 'Coaches & Consultants'].map((tag, i) => (
+            <span key={i} style={{ 
+              padding: '0.5rem 1.25rem', 
+              borderRadius: '8px', 
+              background: 'rgba(255,255,255,0.03)', 
+              border: '1px solid rgba(255,255,255,0.05)', 
+              fontSize: '0.875rem',
+              color: 'var(--text-muted)',
+              transition: 'color 0.3s',
+              cursor: 'default'
+            }}
+            onMouseOver={(e) => e.target.style.color = 'var(--text-main)'}
+            onMouseOut={(e) => e.target.style.color = 'var(--text-muted)'}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
 
     </section>
   );
