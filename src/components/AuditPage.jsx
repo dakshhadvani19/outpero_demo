@@ -116,26 +116,7 @@ export default function AuditPage() {
         createdAt: serverTimestamp(),
       });
 
-      // Trigger outbound Vapi voice call
-      try {
-        const response = await fetch('http://localhost:3000/api/book-audit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: form.name,
-            email: form.email,
-            phone: form.phone,
-            goal: `${form.businessType} (${form.businessSize})`,
-            message: form.challenge
-          }),
-        });
-        const data = await response.json();
-        console.log('Lead submission response:', data);
-      } catch (err) {
-        console.error('Failed to connect to backend server:', err);
-      }
+
 
       setSubmitted(true);
     } catch (error) {
