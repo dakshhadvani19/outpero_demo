@@ -1,6 +1,75 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+const IsometricNumber = ({ num, i }) => {
+  const baseDelay = i * 0.15;
+  const layers = 6;
+  
+  return (
+    <motion.div 
+      style={{ position: 'relative', height: '6rem', marginBottom: '3rem', marginLeft: '0.5rem' }}
+      animate={{ y: [0, -8, 0] }}
+      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+    >
+      {/* Liquid Aura Background */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          top: '30%',
+          left: '10%',
+          width: '4rem',
+          height: '4rem',
+          background: 'linear-gradient(45deg, #FF1361, #FF9A9E)',
+          filter: 'blur(20px)',
+          borderRadius: '50%',
+          zIndex: 0
+        }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 0.5, scale: 1.5 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: baseDelay }}
+      />
+      
+      {/* 3D Trail Layers */}
+      {[...Array(layers)].map((_, index) => {
+        const isFront = index === 0;
+        const opacity = 1 - (index * 0.18);
+        return (
+          <motion.div
+            key={index}
+            style={{
+              position: 'absolute',
+              top: 0, left: 0,
+              fontSize: '5.5rem',
+              fontWeight: 900,
+              lineHeight: 1,
+              color: isFront ? 'transparent' : `rgba(255, 19, 97, ${opacity})`,
+              backgroundImage: isFront ? 'linear-gradient(135deg, #ffffff 0%, #ffb3c6 100%)' : 'none',
+              WebkitBackgroundClip: isFront ? 'text' : 'border-box',
+              WebkitTextFillColor: isFront ? 'transparent' : 'currentColor',
+              filter: isFront ? 'drop-shadow(0 0 10px rgba(255, 19, 97, 0.4))' : 'none',
+              zIndex: 20 - index,
+              WebkitTextStroke: isFront ? 'none' : `1px rgba(255, 19, 97, ${opacity + 0.2})`
+            }}
+            initial={{ x: 0, y: 0, opacity: 0 }}
+            whileInView={{ x: -index * 5, y: index * 5, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+              delay: baseDelay + 0.2 + (index * 0.05),
+              type: "spring",
+              stiffness: 150,
+              damping: 10
+            }}
+          >
+            {num}
+          </motion.div>
+        );
+      })}
+    </motion.div>
+  );
+};
+
 export default function Process() {
   const steps = [
     { num: '01', title: 'We understand your business', desc: '30-minute call. We learn your business, find where money is leaking, and decide what to build.' },
@@ -20,7 +89,7 @@ export default function Process() {
     <section className="section-padding container">
       <div style={{ marginBottom: '4rem' }}>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          — OUR PROCESS <span style={{ flexGrow: 1, height: '1px', background: 'var(--glass-border)' }}></span>
+          OUR PROCESS <span style={{ flexGrow: 1, height: '1px', background: 'var(--glass-border)' }}></span>
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '2rem' }}>
           <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
@@ -40,7 +109,7 @@ export default function Process() {
             viewport={{ once: true }}
             transition={{ delay: i * 0.15, duration: 0.5 }}
           >
-            <div style={{ fontSize: '4rem', fontWeight: 800, color: 'rgba(255,255,255,0.05)', lineHeight: 1, marginBottom: '1rem' }}>{step.num}</div>
+            <IsometricNumber num={step.num} i={i} />
             <h4 style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>{step.title}</h4>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{step.desc}</p>
           </motion.div>
